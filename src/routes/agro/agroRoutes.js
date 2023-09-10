@@ -2,6 +2,7 @@ import express from 'express'
 import agrodealerController from '../../controllers/agrodealerController'
 import checkAuth from '../../middlewares/checkAuthentication'
 import {checkAGROAuthorization} from '../../middlewares/checkAuthorization'
+import PayController from '../../controllers/payController'
 
 const router=express.Router()
 

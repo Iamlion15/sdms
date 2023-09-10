@@ -2,7 +2,7 @@ import userModel from "../models/personModel";
 import { hashPassword } from "./hash_match_password";
 import dbConnect from '../database/db';
 dbConnect();
-const createRABUser = async (firstnam, lastnam, NID, emaill, phonee, password) => {
+const createADMINUser = async (firstnam, lastnam, NID, emaill, phonee, password) => {
     try {
         const existingUser = await userModel.findOne({ email: emaill });
         if (!existingUser == null) {
@@ -17,10 +17,10 @@ const createRABUser = async (firstnam, lastnam, NID, emaill, phonee, password) =
                 email: emaill,
                 phone: phonee,
                 password: hpass,
-                role: "RAB"
+                role: "ADMIN"
             })
             await RABUser.save()
-            console.log("saved RAB administrator sucessfully")
+            console.log("saved administrator sucessfully")
         }
     } catch (error) {
         console.log(error)
@@ -34,4 +34,4 @@ const em = process.argv[5];
 const ph = process.argv[6];
 const pas = process.argv[7];
 
-createRABUser(fname, lname,natid,em,ph,pas);
+createADMINUser(fname, lname,natid,em,ph,pas);

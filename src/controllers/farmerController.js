@@ -134,7 +134,7 @@ class farmerController {
                 }
             }
             try {
-                const transaction = new transactionModel({ ...req.body, requestedFrom: req.body.requestedFrom, status: "fulfilled" })
+                const transaction = new transactionModel({ ...req.body,requestedBy:req.user, requestedFrom: req.body.requestedFrom, status: "fulfilled" })
                 await transaction.save();
                 res.status(200).json({ "message": "successfully filled the order" })
             } catch (error) {

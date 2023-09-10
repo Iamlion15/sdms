@@ -73,7 +73,7 @@ class agrodealerController {
             const newQuantity = RABstock.quantity - Number(req.body.quantity)
             RABstock.quantity = newQuantity;
             const AgroStock = await stockModel.findOne({ seed: req.body.seed, owner: req.user._id })
-            if (AgroStock.length == 0) {
+            if (AgroStock == null) {
                 try {
                     const pricee=req.body.amount/req.body.quantity
                     const stock = new stockModel({
@@ -83,7 +83,7 @@ class agrodealerController {
                         owner: req.user._id
                     });
                      await stock.save();
-                    await stockModel.findOneAndUpda(RABstock._id, RABstock);
+                    await stockModel.findOneAndUpdate(RABstock._id, RABstock);
                 }
                 catch (error) {
                     console.log(error)
@@ -103,7 +103,7 @@ class agrodealerController {
             }
 
             try {
-                const transaction = new transactionModel({ ...req.body, requestedFrom: req.body.requestedFrom, status: "fulfilled" })
+                const transaction = new transactionModel({ ...req.body,requestedBy:req.user, requestedFrom: req.body.requestedFrom, status: "fulfilled" })
                 await transaction.save();
                 res.status(200).json({ "message": "successfully filled the order" })
             } catch (error) {
